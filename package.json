@@ -12,7 +12,6 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3",
     "framer-motion": "^12.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
