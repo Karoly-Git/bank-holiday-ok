@@ -15,7 +15,7 @@ export default function Holidays({ events, selectedYear }) {
             <ul>
                 {events.map((event, index) => (
                     <li key={event.date} className={index === upcomingEventIndex ? "upcoming" : undefined}>
-                        <div className="event-name">{index + 1}. &#41; {event.title}</div>
+                        <div className="event-name">{index + 1}.&#41; {event.title}</div>
                         <div className="event-date">
                             {new Date(event.date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                         </div>
