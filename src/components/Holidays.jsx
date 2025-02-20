@@ -4,7 +4,7 @@ export default function Holidays({ events, selectedYear }) {
 
     function getUpcomingEventIndex() {
         const today = new Date();
-        if (selectedYear === String(today.getFullYear())) {
+        if (selectedYear === today.getFullYear()) {
             return events.findIndex(event => new Date(event.date) > today);
         }
         return -1;
