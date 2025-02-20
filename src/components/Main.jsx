@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getYears, getBankHolidays, getCountries } from '../utils/dataHelpers';
+import fetchData from '../services/fetchGovApi';
 import Dropdown from './Dropdown';
 import Holidays from './Holidays';
 
@@ -10,40 +11,28 @@ export default function Main() {
     const [division, setDivision] = useState("england-and-wales");
     const [bankHolidays, setBankHolidays] = useState([]);
 
-    useEffect(() => {
-        getYears()
-            .then(years => setYears([...years]))
-            .catch(error => {
-                console.error("Error fetching years:", error);
-                setYears([]);
-            });
-    }, []);
+    const [data, setdata] = useState({});
 
     useEffect(() => {
-        getBankHolidays(division, year)
-            .then(bankHolidays => setBankHolidays(bankHolidays || []))
-            .catch(error => {
-                console.error("Error fetching bank holidays:", error);
-                setBankHolidays([]);
-            });
-    }, [division, year]);
-
-    useEffect(() => {
-        getCountries()
-            .then(countries => setCountries([...countries]))
-            .catch(error => {
-                console.error("Error fetching countries:", error);
-                setCountries([]);
-            });
-
-    }, []);
+        fetchData()
+            .then(result => {
+                setdata(result);
+                setCountries(getCountries(result));
+                setYears(getYears(result));
+                setBankHolidays(getBankHolidays(division, year, result));
+            })
+    }, [])
 
     function handleCountryChange(e) {
-        setDivision(e.target.value);
+        const newDivision = e.target.value;
+        setDivision(newDivision);
+        setBankHolidays(getBankHolidays(newDivision, year, data));
     };
 
     function handleYearChange(e) {
-        setYear(Number(e.target.value));
+        let newYear = e.target.value;
+        setYear(newYear);
+        setBankHolidays(getBankHolidays(division, newYear, data));
     };
 
     return (
