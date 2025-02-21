@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
+
 export default function Holidays({ events, selectedYear }) {
-    const upcomingEventIndex = getUpcomingEventIndex();
+    const [upcomingEventIndex, setUpcomingEventIndex] = useState(null);
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     function getUpcomingEventIndex() {
@@ -9,6 +11,10 @@ export default function Holidays({ events, selectedYear }) {
         }
         return -1;
     };
+
+    useEffect(() => {
+        setUpcomingEventIndex(getUpcomingEventIndex());
+    }, [events, selectedYear])
 
     return (
         <div id="events-container">

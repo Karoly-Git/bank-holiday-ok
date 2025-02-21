@@ -30,8 +30,8 @@ export default function Main() {
     };
 
     function handleYearChange(e) {
-        let newYear = e.target.value;
-        setYear(newYear);
+        const newYear = e.target.value;
+        setYear(new Date(newYear).getFullYear());
         setBankHolidays(getBankHolidays(division, newYear, data));
     };
 
