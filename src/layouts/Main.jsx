@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getYears, getBankHolidays, getCountries } from '../utils/dataHelpers';
 import fetchData from '../services/fetchGovApi';
-import Dropdown from './Dropdown';
-import Holidays from './Holidays';
+import Dropdown from '../components/Dropdown';
+import Holidays from '../components/Holidays';
 
 export default function Main() {
     const [year, setYear] = useState(new Date().getFullYear());
